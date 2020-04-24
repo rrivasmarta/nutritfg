@@ -1,0 +1,11 @@
+export const SIGN_UP_COMPLETED = "project/dieticians/signUpCompleted";
+export const LOGIN_COMPLETED = "project/dieticians/loginCompleted";
+export const LOGOUT = "project/dieticians/logout";
+export const UPDATE_PROFILE_COMPLETED = "project/dieticians/updateProfileCompleted";
+export const ADD_OFFICE = "project/dieticians/addOffice";
+export const FIND_DIETICIAN_BY_ID_COMPLETED = "project/dieticians/findDieticianByIdCompleted";
+export const CLEAR_DIETICIAN = "project/dieticians/clearDietician";
+export const CLEAR_PATIENTS_SEARCH = "project/dieticians/clearPatientsSearch";
+export const FIND_PATIENTS_COMPLETED= "project/dieticians/findPatientsCompleted";
+export const CLEAR_PATIENT = "project/dieticians/clearPatient";
+export const FIND_PATIENT_BY_ID_COMPLETED= "project/dieticians/findPatientById";

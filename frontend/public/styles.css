@@ -1,0 +1,11 @@
+.navbar-collapse {
+    text-align: center;
+}
+
+.form-group > label > span {
+    font-weight: bold;
+}
+
+.body{
+    background-color: rgba(191, 230, 205, 1);
+}

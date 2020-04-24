@@ -1,0 +1,9 @@
+export const SIGN_UP_COMPLETED = "project/patients/signUpPatientCompleted";
+export const LOGIN_COMPLETED = "project/patients/loginCompleted";
+export const LOGOUT = "project/patients/logout";
+export const UPDATE_PROFILE_COMPLETED = "project/patients/updateProfileCompleted";
+export const ADD_SIGNUP_DATA = "project/patients/signUpDataPatient";
+export const ADD_HABIT_DATA = "project/patients/habitDataPatient";
+export const ADD_GENERAL_DATA = "project/patients/generalDataPatient";
+export const ADD_MEDICAL_DATA = "project/patients/medicalDataPatient";
+export const ADD_PATIENT_DATA = "project/patients/patient"

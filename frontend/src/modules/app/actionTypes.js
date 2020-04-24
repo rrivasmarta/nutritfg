@@ -1,0 +1,17 @@
+export const LOADING = 'project/common/loading';
+export const LOADED = 'project/common/loaded';
+export const ERROR = 'project/common/error';
+export const GETGENRES = 'GETGENRES';
+export const GETCOUNTRIES = 'GETCOUNTRIES';
+export const GETMARITALSTATUS = 'GETMARITALSTATUS';
+export const GETBOWELFUNCTION = 'GETBOWELFUNCTION';
+export const GETSLEEPQUALITY = 'GETSLEEPQUALITY';
+export const GETPHYSICALACTIVITY = 'GETPHYSICALACTIVITY';
+export const GETSMOKER = 'GETSMOKER';
+export const GETALCOHOLICDRINKER = 'GETALCOHOLICDRINKER';
+export const GETMEASUREUNIT = 'GETMEASUREUNIT';
+export const GETNUTRIENTMEASUREUNIT = 'GETNUTRIENTMEASUREUNIT';
+export const GETMEALTYPES = 'GETMEALTYPES';
+export const GETPATIENTMEASUREUNIT = 'GETPATIENTMEASUREUNIT';
+
+

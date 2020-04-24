@@ -1,0 +1,53 @@
+.talk-box-wrapper{
+    width: 60%;
+    height: 100%;
+    
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.chatContainer{
+    width: 80vw;
+    height: 50vh;
+    display: block;
+    margin-top: 28vh;
+    margin-left: auto;
+    margin-right: auto;
+
+}
+
+.chatContainer h2 {
+    color: black;
+}
+
+.chatTable{
+    
+    width: 94vw;
+    margin-top: 2vh;
+    background-color: white;
+
+}
+
+.chatTableRow{
+
+}
+
+.activeChatsSection{
+    margin-top: 2vh;
+}
+
+.activeChatsSection h3 {
+    text-align: center;
+    margin-top: 2vh;
+    
+}
+
+.activeChatsSection h4 {
+    margin-top: 2vh;
+    color:red;
+    text-align: center;
+}
+
+.chatSection{
+    margin-top: 2vh;
+}

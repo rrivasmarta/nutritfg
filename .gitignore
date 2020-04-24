@@ -1,0 +1,8 @@
+backend/target/
+backend/.classpath
+backend/.project
+backend/.settings/
+
+frontend/build/
+frontend/node_modules/
+/.metadata/

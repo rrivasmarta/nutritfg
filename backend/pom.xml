@@ -1,0 +1,355 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<groupId>org.springframework.boot</groupId>
+		<artifactId>spring-boot-starter-parent</artifactId>
+		<version>2.1.6.RELEASE</version>
+		<relativePath/> <!-- lookup parent from repository -->
+	</parent>
+	
+	<groupId>es.udc</groupId>
+	<artifactId>nutritfg</artifactId>
+	<version>1.0.0</version>
+	<name>nutritfg</name>
+	<description>TFG nutricion</description>
+
+	<!-- ********************************************** -->
+	<!-- **************** PROPERTIES ****************** -->
+	<!-- ********************************************** -->
+	<properties>
+		<!-- ============================================== -->
+		<!-- ================ JAVA VERSION ================ -->
+		<!-- ============================================== -->
+	
+		<java.version>1.8</java.version>
+	
+		<!-- ============================================== -->
+		<!-- =========== DEPENDENCIES VERSIONS ============ -->
+		<!-- ============================================== -->
+		
+		
+		<!-- ============================================== -->
+		<!-- =========== DATASOURCE PROPERTIES ============ -->
+		<!-- ============================================== -->
+		
+        <dataSource.user>root</dataSource.user>
+        <dataSource.password>root</dataSource.password>
+        <testDataSource.user>${dataSource.user}</testDataSource.user>
+        <testDataSource.password>${dataSource.password}</testDataSource.password>
+		
+		<!-- ============================================== -->
+		<!-- =========== PACKAGE VERSIONS ============ -->
+		<!-- ============================================== -->
+        <jjwt.version>0.9.0</jjwt.version>
+	
+		<!-- ============================================== -->
+		<!-- ============== PLUGINS VERSIONS ============== -->
+		<!-- ============================================== -->
+		<sqlPlugin.version>1.5</sqlPlugin.version>
+		<plugin.tomcat7.version>2.2</plugin.tomcat7.version>
+		<plugin.jetty.version>9.4.8.v20171121</plugin.jetty.version>
+		
+	</properties>
+
+	<!-- ********************************************** -->
+	<!-- ****************** PROFILES ****************** -->
+	<!-- ********************************************** -->
+
+	<profiles>	
+		<profile>
+		      <id>mysql</id>
+		      <activation>
+		        <activeByDefault>true</activeByDefault>
+		      </activation>
+		      
+		      <properties>
+		      	<jdbcDriver.groupId>mysql</jdbcDriver.groupId>
+		        <jdbcDriver.artifactId>mysql-connector-java</jdbcDriver.artifactId>
+		        <jdbcDriver.version>8.0.11</jdbcDriver.version>
+		        <jdbcDriver.className>com.mysql.cj.jdbc.Driver</jdbcDriver.className>
+		        
+		        <database.url>jdbc:mysql://localhost:3306/nutri</database.url>
+				<database.username>root</database.username>
+				<database.password>root</database.password>
+				<database.tag>mysql</database.tag>
+		        
+		        <testDataSource.url>jdbc:mysql://localhost/nutritest?useSSL=false&amp;allowPublicKeyRetrieval=true&amp;serverTimezone=Europe/Madrid</testDataSource.url>
+		        <dataSource.baseUrl>jdbc:mysql://localhost/nutri</dataSource.baseUrl>
+		        <dataSource.url>jdbc:mysql://localhost/nutri?useSSL=false&amp;allowPublicKeyRetrieval=true&amp;serverTimezone=Europe/Madrid</dataSource.url>
+		      </properties>
+    	</profile>
+	
+		<!-- ============================================== -->
+		<!-- ========= EMBEDDED SERVER PROFILES =========== -->
+		<!-- ============================================== -->
+		<profile>
+			<!-- Jetty profile -->
+			<!-- Sets ups Jetty for testing and local deployment -->
+			<id>jetty</id>
+			<build>
+				<plugins>
+					<plugin>
+						<!-- Jetty -->
+						<!-- Jetty will run the web service during the integration tests -->
+						<groupId>org.eclipse.jetty</groupId>
+						<artifactId>jetty-maven-plugin</artifactId>
+						<version>${plugin.jetty.version}</version>
+						<configuration>
+							<stopKey>STOP</stopKey>
+							<stopPort>9999</stopPort>
+							<stopWait>5</stopWait>
+							<httpConnector>
+								<port>9090</port>
+							</httpConnector>
+						</configuration>
+						<executions>
+							<execution>
+								<id>start-jetty-it</id>
+								<phase>pre-integration-test</phase>
+								<goals>
+									<goal>start</goal>
+								</goals>
+								<configuration>
+									<scanIntervalSeconds>0</scanIntervalSeconds>
+									<daemon>true</daemon>
+									<useTestScope>true</useTestScope>
+									<webApp>
+										<overrideDescriptor>${project.build.directory}/${project.build.finalName}/WEB-INF/web.xml</overrideDescriptor>
+									</webApp>
+								</configuration>
+							</execution>
+							<execution>
+								<id>stop-jetty-it</id>
+								<phase>post-integration-test</phase>
+								<goals>
+									<goal>stop</goal>
+								</goals>
+							</execution>
+						</executions>
+					</plugin>
+				</plugins>
+			</build>
+		</profile>
+		<profile>
+			<!-- Tomcat 7 profile -->
+			<!-- Sets ups Tomcat 7 for testing and local deployment -->
+			<id>tomcat7</id>
+			<build>
+				<plugins>
+					<plugin>
+						<!-- Tomcat 7 -->
+						<!-- Tomcat 7 will run the web service during the integration tests -->
+						<groupId>org.apache.tomcat.maven</groupId>
+						<artifactId>tomcat7-maven-plugin</artifactId>
+						<version>${plugin.tomcat7.version}</version>
+						<executions>
+							<execution>
+								<id>start-tomcat-it</id>
+								<phase>pre-integration-test</phase>
+								<goals>
+									<goal>run</goal>
+								</goals>
+								<configuration>
+									<fork>true</fork>
+									<useTestClasspath>true</useTestClasspath>
+									<warSourceDirectory>${project.build.directory}/${project.build.finalName}/</warSourceDirectory>
+									<url>http://localhost:8080/nutri</url> 
+									<server>localhost</server> 
+									<path>/${project.build.finalName}</path> 
+								</configuration>
+							</execution>
+							<execution>
+								<id>stop-tomcat-it</id>
+								<phase>post-integration-test</phase>
+								<goals>
+									<goal>shutdown</goal>
+								</goals>
+							</execution>
+						</executions>
+					</plugin>
+				</plugins>
+			</build>
+		</profile>
+		
+	</profiles>
+	
+
+	<!-- ********************************************** -->
+	<!-- *************** DEPENDENCIES ***************** -->
+	<!-- ********************************************** -->
+	<dependencies>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-data-jpa</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-security</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-web</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>com.h2database</groupId>
+			<artifactId>h2</artifactId>
+			<scope>runtime</scope>
+		</dependency>
+		<dependency>
+			<groupId>mysql</groupId>
+			<artifactId>mysql-connector-java</artifactId>
+			<scope>runtime</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-test</artifactId>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.security</groupId>
+			<artifactId>spring-security-test</artifactId>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-devtools</artifactId>
+			<scope>runtime</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-test</artifactId>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>io.jsonwebtoken</groupId>
+			<artifactId>jjwt</artifactId>
+			<version>${jjwt.version}</version>
+		</dependency>
+<!-- 		<dependency> -->
+<!-- 			<groupId>${jdbcDriver.groupId}</groupId> -->
+<!-- 			<artifactId>${jdbcDriver.artifactId}</artifactId> -->
+<!-- 			<scope>runtime</scope> -->
+<!-- 		</dependency> -->
+		<dependency>
+				<groupId>mysql</groupId>
+				<artifactId>mysql-connector-java</artifactId>
+				<scope>compile</scope>
+		</dependency>
+		<dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-websocket</artifactId>
+        </dependency>
+	</dependencies>
+
+	<build>
+        <testResources>
+            <testResource>
+                <directory>src/test/resources</directory>
+                <filtering>true</filtering>
+            </testResource>
+        </testResources>	
+        	
+		<plugins>
+			
+			<plugin>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-maven-plugin</artifactId>
+			</plugin>
+			
+			<plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>sql-maven-plugin</artifactId>
+                <version>${sqlPlugin.version}</version>
+                <dependencies>
+                    <dependency>
+                        <groupId>${jdbcDriver.groupId}</groupId>
+                        <artifactId>${jdbcDriver.artifactId}</artifactId>
+                        <version>${jdbcDriver.version}</version>
+                    </dependency>
+                </dependencies>
+                <configuration>
+                    <driver>${jdbcDriver.className}</driver>
+                    <url>${dataSource.url}</url>
+                    <username>${dataSource.user}</username>
+                    <password>${dataSource.password}</password>
+                    <autocommit>true</autocommit>
+                    <onError>continue</onError>
+                    <orderFile>ascending</orderFile> 
+                    <fileset>
+                        <basedir>${basedir}</basedir>
+                        <includes>
+                            <include>
+                                src/sql/${dataSource.createTablesScript}
+                            </include>
+                            <include>
+                                src/sql/${dataSource.createDataScript}
+                            </include>
+                        </includes>
+                    </fileset>
+                </configuration>
+                <executions>
+                    <execution>
+                        <id>create-tables-for-testing</id>
+                        <phase>process-test-resources</phase>
+                        <goals>
+                            <goal>execute</goal>
+                        </goals>
+                        <configuration>
+                            <driver>${jdbcDriver.className}</driver>
+                            <url>${testDataSource.url}</url>
+                            <username>${testDataSource.user}</username>
+                            <password>${testDataSource.password}</password>
+                            <autocommit>true</autocommit>
+                            <onError>continue</onError>
+                            <fileset>
+                                <basedir>${basedir}</basedir>
+                                <includes>
+                                    <include>
+                                        src/sql/${dataSource.createTablesScript}
+                                    </include>
+                                </includes>
+                            </fileset>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+	
+		</plugins>
+
+		<pluginManagement>
+        	<plugins>
+        		<!-- This plugin's configuration is used to store Eclipse m2e 
+        		     settings only. It has no influence on the Maven build
+        		     itself. -->
+        		<plugin>
+        			<groupId>org.eclipse.m2e</groupId>
+        			<artifactId>lifecycle-mapping</artifactId>
+        			<version>1.0.0</version>
+        			<configuration>
+        				<lifecycleMappingMetadata>
+        					<pluginExecutions>
+        						<pluginExecution>
+        							<pluginExecutionFilter>
+        								<groupId>org.codehaus.mojo</groupId>
+        								<artifactId>sql-maven-plugin</artifactId>
+        								<versionRange>${sqlPlugin.version}</versionRange>
+        								<goals>
+        									<goal>execute</goal>
+        								</goals>
+        							</pluginExecutionFilter>
+        							<action>
+        								<ignore></ignore>
+        							</action>
+        						</pluginExecution>
+        					</pluginExecutions>
+        				</lifecycleMappingMetadata>
+        			</configuration>
+        		</plugin>
+        	</plugins>
+        </pluginManagement>
+	
+	</build>
+	
+</project>

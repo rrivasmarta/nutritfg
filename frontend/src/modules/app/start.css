@@ -1,0 +1,59 @@
+
+/* 
+.login_container {
+    max-width: 700px;
+    margin-right: 40px;
+} */
+
+/* .appi{
+    position: relative;
+} */
+
+.rightrightHalf{
+    background-image: url('../../images/zahanoria.gif');
+    width: 80vw;
+    /* margin-left: 50vw;  */
+    /* float: right; */
+        
+}
+
+.rightHalf{
+    background-image: url('../../images/clinic.gif');
+    width:80vw;
+    /* margin-left: 50vw;  */
+    
+}
+
+.leftHalf{
+   
+    background-image: url('../../images/doctor.gif');
+    height: 60vh;
+    width: 80vw;
+    /* float: left; */
+    
+}
+
+/* .container{
+    padding-right: 0px;
+    padding-left: 0px;
+    margin-right: 0px;
+    margin-left: 0px;
+}
+
+.body{
+    line-height: 0;
+} */
+
+
+.card.bg-light.border-dark{
+    background-color: transparent;
+  }
+  
+  .bg-light {
+      background-color: transparent !important;
+  }
+  
+  .border-dark {
+    border-color: rgba(244, 240, 227, 0) !important;
+  }
+

@@ -1,0 +1,60 @@
+.App {
+  text-align: center;
+  background-color: rgba(191, 230, 205, 1);
+}
+
+.App-logo {
+  animation: App-logo-spin infinite 20s linear;
+  height: 40vmin;
+  pointer-events: none;
+}
+
+.App-header {
+  background-color: #72D717;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+  color: rgb(121, 238, 11);
+}
+
+.App-link {
+  color: #61dafb;
+}
+
+@keyframes App-logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* .container{
+  background-color:  rgba(7, 180, 73, 0.64);
+} */
+
+nav.navbar.navbar-expand-lg.navbar-light.bg-light.border{
+  background-color: rgba(7, 180, 73, 0.64) !important;
+  border: 1px solid #28a745 !important;
+}
+
+.sidenav---sidenav---_2tBP{
+  background-color: rgba(7, 180, 73, 0.64) !important;
+  border: 1px solid #28a745 !important;
+  float:left;
+  position: relative;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 1006;
+  min-width: 64px;
+}
+
+.modal-90w{
+  width: 90vw;
+}
+
